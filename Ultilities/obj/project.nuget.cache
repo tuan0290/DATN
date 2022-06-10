@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "dgSpecHash": "S+h+LDW5mSs2m+U3Y9IEO6EaomkhQEN0RfrR4j0J+xk1YHIBWMkRJNb7JfRn4S7i0whWuySLI3d6+6dEwNNcHQ==",
+  "success": true,
+  "projectFilePath": "D:\\DevOps\\DATN\\TuNgaComputer_DA\\Ultilities\\Ultilities.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Tuan\\.nuget\\packages\\lazziya.imageresize\\3.0.2\\lazziya.imageresize.3.0.2.nupkg.sha512",
+    "C:\\Users\\Tuan\\.nuget\\packages\\libphonenumber-csharp\\8.12.19\\libphonenumber-csharp.8.12.19.nupkg.sha512",
+    "C:\\Users\\Tuan\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\Tuan\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.3\\microsoft.aspnetcore.http.features.5.0.3.nupkg.sha512",
+    "C:\\Users\\Tuan\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
+    "C:\\Users\\Tuan\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\Tuan\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
+    "C:\\Users\\Tuan\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\Tuan\\.nuget\\packages\\sixlabors.imagesharp\\1.0.3\\sixlabors.imagesharp.1.0.3.nupkg.sha512",
+    "C:\\Users\\Tuan\\.nuget\\packages\\system.collections.immutable\\1.7.1\\system.collections.immutable.1.7.1.nupkg.sha512",
+    "C:\\Users\\Tuan\\.nuget\\packages\\system.drawing.common\\5.0.1\\system.drawing.common.5.0.1.nupkg.sha512",
+    "C:\\Users\\Tuan\\.nuget\\packages\\system.io.pipelines\\5.0.1\\system.io.pipelines.5.0.1.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.text.encodings.web\\4.5.0\\system.text.encodings.web.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}

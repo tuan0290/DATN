@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewData["Title"] = "Tin tức";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var newses = (Entities.Common.PaginationModel<List<Entities.DTOs.NewsViewModel>>)ViewBag.ListMainNews;
+    var countPage = (newses.Pagination.Total % newses.Pagination.Size > 1) ? newses.Pagination.Total / newses.Pagination.Size + 1 :
+        newses.Pagination.Total / newses.Pagination.Size + 1;
+    var currentCategoryId = newses.Data.FirstOrDefault() != null ? newses.Data.FirstOrDefault().currentCategoryId : 1;
+    var currentPage = newses.Pagination.Offset + 1;
+    bool isNext = (currentPage < countPage);
+    bool isPrev = (currentPage > 1);
+    string currentOrder = ViewBag.CurrentOrder?.ToString();
+    var currentCategory = ViewBag.CurrentCategory.ToString();
+}
+@{
+    var listRandomCategoryNews = (List<Entities.DTOs.CategoryNewsViewModel>)ViewBag.ListRandomCategoryNews;
+    var listHotNewses = (List<Entities.DTOs.NewsViewModel>)ViewBag.ListHotNewses;
+    var listRecentNews = (List<Entities.DTOs.NewsViewModel>)ViewBag.ListRecentNews;
+}
+<div class="shop-category-area blog-grid">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 order-lg-last col-md-12 order-md-first">
+                <div class="blog-posts">
+                    <div class="row">
+                        @if (newses.Data.Count > 0)
+                        {
+                            foreach (var ran in newses.Data)
+                            {
+                                <div class="col-md-6 mb-res-sm-30px">
+                                    <div class="single-blog-post blog-grid-post">
+                                        <div class="blog-post-media">
+                                            <div class="blog-image">
+                                                <a href="@Url.Action("NewsDetail", "Home", new { id = ran.Id })"><img src="@ran.ThumbImage" alt="blog"></a>
+                                            </div>
+                                        </div>
+                                        <div class="blog-post-content-inner mt-30">
+                                            <h4 class="blog-title"><a href="@Url.Action("NewsDetail", "Home", new { id = ran.Id })">@ran.Title</a></h4>
+                                            <ul class="blog-page-meta">
+                                                <li>
+                                                    <a href="@Url.Action("NewsDetail", "Home", new { id = ran.Id })"><i class="ion-person"></i> @ran.Author</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("NewsDetail", "Home", new { id = ran.Id })"><i class="ion-calendar"></i> @ran.PostedDate?.ToString("dd/MM/yyyy")</a>
+                                                </li>
+                                            </ul>
+                                            <p>
+                                                @ran.SubTitle
+                                            </p>
+                                            <a class="read-more-btn" href="@Url.Action("NewsDetail", "Home", new { id = ran.Id })"> Chi tiết <i class="ion-android-arrow-dropright-circle"></i></a>
+                                        </div>
+                                    </div>
+                                    <!-- single blog post -->
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <!--  Pagination Area Start -->
+                <div class="pro-pagination-style text-center">
+                    <ul>
+                        @if (isPrev)
+                        {
+                            <li>
+                                <a class="prev" href="@Url.Action("News", "Home", new { id = currentCategoryId, page = (currentPage-1) })"><i class="ion-ios-arrow-left"></i></a>
+                            </li>
+                        }
+                        @for (int i = 1; i <= countPage; i++)
+                        {
+                            if (currentPage == i)
+                            {
+                                <li>
+                                    <a class="active" href="@Url.Action("News", "Home", new { id = currentCategoryId, page = i })">
+                                        @i
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="@Url.Action("News", "Home", new { id = currentCategoryId, page = i })">
+                                        @i
+                                    </a>
+                                </li>
+                            }
+                        }
+                        @if (isNext)
+                        {
+                            <li>
+                                <a class="next" href="@Url.Action("News", "Home", new { id = currentCategoryId, page = (currentPage+1) })"><i class="ion-ios-arrow-right"></i></a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <!--  Pagination Area End -->
+            </div>
+            <!-- Sidebar Area Start -->
+            <div class="col-lg-3 order-lg-first col-md-12 order-md-last mb-res-md-60px mb-res-sm-60px">
+                <div class="left-sidebar">
+                    <!-- Sidebar single item -->
+                    <div class="sidebar-widget mt-40">
+                        <div class="main-heading">
+                            <h2>Danh mục</h2>
+                        </div>
+                        <div class="category-post">
+                            <ul>
+                                @if (listRandomCategoryNews.Count > 0)
+                                {
+                                    foreach (var ran in listRandomCategoryNews)
+                                    {
+                                        <li><a href="@Url.Action("News", "Home", new { id = @ran.Id })">@ran.CategoryName<span> (@ran.NewsCount)</span></a></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Sidebar single item -->
+                    <div class="sidebar-widget mt-40">
+                        <div class="main-heading">
+                            <h2>Bài viết gần đây</h2>
+                        </div>
+                        <div class="recent-post-widget">
+                            @if (listRecentNews.Count > 0)
+                            {
+                                foreach (var ran in listRecentNews)
+                                {
+                                    <div class="recent-single-post d-flex">
+                                        <div class="thumb-side">
+                                            <a href="@Url.Action("NewsDetail", "Home", new { id = ran.Id })"><img src="@ran.ThumbImage" alt=""></a>
+                                        </div>
+                                        <div class="media-side">
+                                            <h5><a href="#">@ran.Title </a></h5>
+                                            <span class="date">@ran.PostedDate?.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Sidebar Area End -->
+        </div>
+    </div>
+</div>

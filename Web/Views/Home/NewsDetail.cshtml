@@ -1,0 +1,149 @@
+﻿@model Entities.DTOs.NewsViewModel
+@{
+    ViewData["Title"] = "Chi tiết tin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var listRandomCategoryNews = (List<Entities.DTOs.CategoryNewsViewModel>)ViewBag.ListRandomCategoryNews;
+    var listHotNewses = (List<Entities.DTOs.NewsViewModel>)ViewBag.ListHotNewses;
+    var listRecentNews = (List<Entities.DTOs.NewsViewModel>)ViewBag.ListRecentNews;
+}
+<div class="shop-category-area single-blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 order-lg-last col-md-12 order-md-first">
+                <div class="blog-posts">
+                    <div class="single-blog-post blog-grid-post">
+                        <div class="blog-post-media">
+                            <div class="blog-image single-blog">
+                                <a href="#"><img src="@Model.LargeImage" style="max-height: 400px;" alt="blog"></a>
+                            </div>
+                        </div>
+                        <div class="blog-post-content-inner">
+                            <h4 class="blog-title"><a href="#">@Model.Title</a></h4>
+                            <ul class="blog-page-meta">
+                                <li>
+                                    <a href="#"><i class="ion-person"></i> @Model.Author</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="ion-calendar"></i> @Model.PostedDate?.ToString("dd/MM/yyyy")</a>
+                                </li>
+                            </ul>
+                            <p>
+                                @Model.SubTitle
+                            </p>
+                        </div>
+                        <hr />
+                        <div class="single-post-content">
+                            @Html.Raw(Model.NewsContent)
+                        </div>
+                    </div>
+                    <!-- single blog post -->
+                </div>
+                <div class="blog-single-tags-share d-sm-flex justify-content-between">
+                    <div class="blog-single-share d-flex">
+                        <span class="title">Share:</span>
+                        <ul class="social">
+                            <li>
+                                <a href="#"><i class="ion-social-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="ion-social-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="ion-social-google"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="ion-social-instagram"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="blog-related-post">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <!-- Section Title -->
+                            <div class="section-title underline-shape">
+                                <h2>Tin tức khác</h2>
+                            </div>
+                            <!-- Section Title -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        @if (listRecentNews.Count > 0)
+                        {
+                            foreach (var ran in listRecentNews)
+                            {
+                                <div class="col-md-4 mb-res-md-30px mb-res-sm-30px">
+                                    <div class="blog-post-media">
+                                        <div class="blog-image single-blog">
+                                            <a href="@Url.Action("News", "Home", new { id = @ran.Id })"><img src="@ran.ThumbImage" style="max-height: 150px;" alt="blog"></a>
+                                        </div>
+                                    </div>
+                                    <div class="blog-post-content-inner">
+                                        <h4 class="blog-title"><a href="blog-single-left-sidebar.html">@ran.Title</a></h4>
+                                        <ul class="blog-page-meta">
+                                            <li>
+                                                <a href="@Url.Action("News", "Home", new { id = @ran.Id })"><i class="ion-person"></i> @ran.Author</a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("News", "Home", new { id = @ran.Id })"><i class="ion-calendar"></i> @ran.PostedDate?.ToString("dd/MM/yyyy")</a>
+                                            </li>
+                                        </ul>
+                                        <p>@ran.SubTitle</p>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- Sidebar Area Start -->
+            <div class="col-lg-3 order-lg-first col-md-12 order-md-last mb-res-md-60px mb-res-sm-60px">
+                <div class="left-sidebar">
+                    <!-- Sidebar single item -->
+                    <div class="sidebar-widget mt-40">
+                        <div class="main-heading">
+                            <h2>Danh mục</h2>
+                        </div>
+                        <div class="category-post">
+                            <ul>
+                                @if (listRandomCategoryNews.Count > 0)
+                                {
+                                    foreach (var ran in listRandomCategoryNews)
+                                    {
+                                        <li><a href="@Url.Action("News", "Home", new { id = @ran.Id })">@ran.CategoryName<span> (@ran.NewsCount)</span></a></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Sidebar single item -->
+                    <div class="sidebar-widget mt-40">
+                        <div class="main-heading">
+                            <h2>Bài viết gần đây</h2>
+                        </div>
+                        <div class="recent-post-widget">
+                            @if (listRecentNews.Count > 0)
+                            {
+                                foreach (var ran in listRecentNews)
+                                {
+                                    <div class="recent-single-post d-flex">
+                                        <div class="thumb-side">
+                                            <a href="@Url.Action("NewsDetail", "Home", new { id = ran.Id })"><img src="@ran.ThumbImage" alt=""></a>
+                                        </div>
+                                        <div class="media-side">
+                                            <h5><a href="#">@ran.Title </a></h5>
+                                            <span class="date">@ran.PostedDate?.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Sidebar Area End -->
+        </div>
+    </div>
+</div>

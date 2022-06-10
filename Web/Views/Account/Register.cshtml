@@ -1,0 +1,68 @@
+﻿@model Entities.DTOs.AccountRegisterDTO
+@{
+    ViewData["Title"] = "Đăng ký";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="login-register-area mb-60px mt-53px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-12 mx-auto">
+                <div class="login-register-wrapper">
+                    <div class="login-register-tab-list nav">
+                        <a href="@Url.Action("Login", "Account")">
+                            <h4>Đăng nhập</h4>
+                        </a>
+                        <a class="active" href="#" asp-antiforgery="true">
+                            <h4>Đăng ký</h4>
+                        </a>
+                    </div>
+                    <div class="tab-content">
+                        <div id="lg2" class="tab-pane active">
+                            <div class="login-form-container">
+                                <div class="login-register-form billing-info-wrap">
+                                    <form class="form-horizontal" method="post" action="@Url.ActionLink("Register")" asp-antiforgery="true">
+                                        <input type="text" asp-for="Username" placeholder="Tên đăng nhập (bắt buộc)">
+                                        <input type="password" asp-for="Password" placeholder="Mật khẩu (bắt buộc)">
+                                        <input type="password" asp-for="RePassword" placeholder="Nhập lại mật khẩu (bắt buộc)">
+                                        <input asp-for="FullName" placeholder="Họ và tên" type="text">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <select asp-for="Gender" placeholder="Họ và tên" style="width: 100%;" class="mb-4">
+                                                    <option value="3">Chọn giới tính</option>
+                                                    <option value="1">Nam</option>
+                                                    <option value="2">Nữ</option>
+                                                    <option value="3">Khác</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <input type="date" asp-for="Birthday" placeholder="Ngày sinh">  
+                                            </div>
+                                        </div>
+                                        <input type="text" asp-for="Address" placeholder="Địa chỉ">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input asp-for="Email" placeholder="Email (bắt buộc)" type="email">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input asp-for="Phone" placeholder="Số điện thoại (bắt buộc)" type="tel">
+                                            </div>
+                                        </div>
+                                        @if (ViewData["Error"] != null)
+                                        {
+                                            <div class="alert-danger p-2 mb-3">@ViewData["Error"].ToString()</div>
+                                        }
+                                        <div class="button-box text-center">
+                                            <button type="submit"><span>Đăng ký</span></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

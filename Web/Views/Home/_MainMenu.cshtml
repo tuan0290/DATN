@@ -1,0 +1,288 @@
+﻿@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var cartSession = HttpContextAccessor.HttpContext.Session.GetString("cart");
+    var listItem = cartSession != null ? JsonConvert.DeserializeObject<List<CartItem>>(cartSession) : new List<CartItem>();
+    decimal? totalHomePrice = 0;
+    decimal? totalHomePriceMobile = 0;
+}
+@{
+    var listNewsCate = (List<Entities.DTOs.CategoryNewsViewModel>)TempData["newsmenu"];
+    var listProductCate = (List<Entities.DTOs.ProductCategoryViewModel>)TempData["productmenu"];
+}
+<style>
+    .count-cart:after {
+        content: "@listItem.Count()" !important;
+    }
+</style>
+<div class="header-navigation d-lg-block d-none">
+    <div class="container">
+        <div class="row">
+            <!-- Logo Start -->
+            <div class="col-md-2 col-sm-2">
+                <div class="logo">
+                    <a href="@Url.Action("Index", "Home")"><img src="/assets/images/logo/logo.png" alt=""></a>
+                </div>
+            </div>
+            <!-- Logo End -->
+            <div class="col-md-10 col-sm-10 mt-1">
+                <!--Header Bottom Account Start -->
+                <div class="header_account_area">
+                    <!--Seach Area Start -->
+                    <div class="header_account_list search_list">
+                        <a href="javascript:void(0)"><i class="ion-ios-search-strong"></i></a>
+                        <div class="dropdown_search">
+                            <form action="#" onsubmit="return;">
+                                <input id="txtSeach" placeholder="Tìm kiếm sản phẩm ..." type="text">
+                                <button type="button" onclick="onSearch()"><i class="ion-ios-search-strong"></i></button>
+                            </form>
+                        </div>
+                        <script>
+                            function onSearch() {
+                                var kw = $("#txtSeach").val();
+                                window.location.href = "@Url.Action("Search", "Home")?keyword="+kw;
+                            }
+                            $("#txtSeach").keyup(function (e) {
+                                var code = e.key;
+                                if (code === "Enter") {
+                                    onSearch();
+                                }
+                            });
+                        </script>
+                    </div>
+                    <!--Seach Area End -->
+                    <!--Contact info Start -->
+                    <div class="contact-link-wrap">
+                        <div class="contact-link">
+                            <div class="phone">
+                                <p>Liên hệ:</p>
+                                <a href="tel:0353529692">035.352.9692</a>
+                            </div>
+                        </div>
+                        <!--Contact info End -->
+                        <!--Cart info Start -->
+                        <div class="cart-info d-flex">
+                            <div class="mini-cart-warp">
+                                <a href="#" class="count-cart"></a>
+
+                                <div class="mini-cart-content">
+                                    @if (listItem?.Count > 0)
+                                    {
+                                        <ul>
+                                            @foreach (var item in listItem)
+                                            {
+                                                <li class="single-shopping-cart">
+                                                    <div class="shopping-cart-img">
+                                                        <a href="@Url.Action("ProductDetails","Home", new { id = item.Product.Id })"><img alt="" src="@item.Product.MainImageThumb"></a>
+                                                        <span class="product-quantity">@item.Quantity x</span>
+                                                    </div>
+                                                    <div class="shopping-cart-title">
+                                                        <h4><a href="@Url.Action("ProductDetails","Home", new { id = item.Product.Id })">@item.Product.Name</a></h4>
+                                                        @if (item.Product.IsPromote)
+                                                        {
+                                                            <span>@item.Product.PromotionPrice.GetValueOrDefault(0).ToString("N0") đ</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>@item.Product.Price.GetValueOrDefault(0).ToString("N0") đ</span>
+                                                        }
+                                                        <div class="shopping-cart-delete">
+                                                            <a href="#" data-id="@item.Product.Id"><i class="ion-android-cancel"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                {
+                                                    if (item.Product.IsPromote)
+                                                    {
+                                                        totalHomePrice += item.Product.PromotionPrice * item.Quantity;
+                                                    }
+                                                    else
+                                                    {
+                                                        totalHomePrice += item.Product.Price * item.Quantity;
+                                                    }
+                                                }
+                                            }
+                                        </ul>
+                                        <div class="shopping-cart-total">
+                                            <h4>Tổng cộng : <span>@totalHomePrice.GetValueOrDefault(0).ToString("N0") đ</span></h4>
+                                        </div>
+                                        <div class="shopping-cart-btn text-center">
+                                            <a class="default-btn" style="background-color: #2e9ed5; color: #fff;" href="@Url.Action("Index","Cart")">Giỏ hàng</a>
+                                            <hr />
+                                            <a class="default-btn" href="@Url.Action("Payment","Cart")">Thanh toán</a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div style="padding-top: 25px;">
+                                            <span>Giỏ hàng trống!</span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <!--Cart info End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="header-buttom-nav sticky-nav">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-left d-none d-lg-block">
+                <div class="d-flex align-items-start justify-content-start">
+                    <!-- Beauty Category -->
+                    <div class="beauty-category vertical-menu home-9">
+                        <h3 class="vertical-menu-heading vertical-menu-toggle">Danh mục sản phẩm</h3>
+                        <ul class="vertical-menu-wrap open-menu-toggle">
+                            <li class="menu-dropdown">
+                                <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+                            </li>
+                            <li class="menu-dropdown">
+                                <a href="@Url.Action("About", "Home")">Giới thiệu</a>
+                            </li>
+                            <li class="menu-dropdown">
+                                @if (listProductCate?.Count > 0)
+                                {
+                                    <a href="#">Sản phẩm <i class="ion-ios-arrow-down"></i></a>
+                                    <ul class="sub-menu">
+                                        @foreach (var item in listProductCate.Where(x => x.ParentId == -1).ToList())
+                                        {
+                                            <li class="menu-dropdown position-static">
+                                                @if (listProductCate.Any(x => x.ParentId == item.Id))
+                                                {
+                                                    <a href="@Url.Action("Product", "Home", new { id = item.Id, page = 1 })">@item.CategoryName <i class="ion-ios-arrow-down"></i></a>
+                                                    <ul class="sub-menu sub-menu-2">
+                                                        @foreach (var item2 in listProductCate.Where(x => x.ParentId == item.Id).ToList())
+                                                        {
+                                                            <li><a href="@Url.Action("Product", "Home", new { id = item2.Id, page = 1 })">@item2.CategoryName</a></li>
+                                                        }
+                                                    </ul>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("Product", "Home", new { id = item.Id, page = 1 })">@item.CategoryName</a>
+                                                }
+                                            </li>
+                                        }
+                                        @*<li class="menu-dropdown position-static">
+                                                <a href="#">Blog Grid <i class="ion-ios-arrow-down"></i></a>
+                                                <ul class="sub-menu sub-menu-2">
+                                                    <li><a href="blog-grid-left-sidebar.html">Blog Grid Left Sidebar</a></li>
+                                                    <li><a href="blog-grid-right-sidebar.html">Blog Grid Right Sidebar</a></li>
+                                                </ul>
+                                            </li>
+
+                                            <li class="menu-dropdown position-static">
+                                                <a href="#">Blog Single <i class="ion-ios-arrow-down"></i></a>
+                                            </li>*@
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <a href="#">Sản phẩm</a>
+                                }
+                            </li>
+                            <li class="menu-dropdown">
+                                @if (listNewsCate?.Count > 0)
+                                {
+                                    <a href="#">Tin tức <i class="ion-ios-arrow-down"></i></a>
+                                    <ul class="sub-menu">
+                                        @foreach (var item in listNewsCate.ToList())
+                                        {
+                                            <li class="menu-dropdown position-static">
+                                                <a href="@Url.Action("News", "Home", new { id = item.Id, page = 1 })">@item.CategoryName</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <a href="#">Tin tức</a>
+                                }
+                            </li>
+                            <li><a href="@Url.Action("Contact", "Home")">Liên hệ</a></li>
+                        </ul>
+                    </div>
+                    <!-- Beauty Category -->
+                    <!--Main Navigation Start -->
+                    <div class="main-navigation">
+                        <ul>
+                            <li class="menu-dropdown">
+                                <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+                            </li>
+                            <li class="menu-dropdown">
+                                <a href="@Url.Action("About", "Home")">Giới thiệu</a>
+                            </li>
+                            <li class="menu-dropdown">
+                                @if (listProductCate?.Count > 0)
+                                {
+                                    <a href="#">Sản phẩm <i class="ion-ios-arrow-down"></i></a>
+                                    <ul class="sub-menu">
+                                        @foreach (var item in listProductCate.Where(x => x.ParentId == -1).ToList())
+                                        {
+                                            <li class="menu-dropdown position-static">
+                                                @if (listProductCate.Any(x => x.ParentId == item.Id))
+                                                {
+                                                    <a href="@Url.Action("Product", "Home", new { id = item.Id, page = 1 })">@item.CategoryName <i class="ion-ios-arrow-down"></i></a>
+                                                    <ul class="sub-menu sub-menu-2">
+                                                        @foreach (var item2 in listProductCate.Where(x => x.ParentId == item.Id).ToList())
+                                                        {
+                                                            <li><a href="@Url.Action("Product", "Home", new { id = item2.Id, page = 1 })">@item2.CategoryName</a></li>
+                                                        }
+                                                    </ul>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("Product", "Home", new { id = item.Id, page = 1 })">@item.CategoryName</a>
+                                                }
+                                            </li>
+                                        }
+                                        @*<li class="menu-dropdown position-static">
+                                                <a href="#">Blog Grid <i class="ion-ios-arrow-down"></i></a>
+                                                <ul class="sub-menu sub-menu-2">
+                                                    <li><a href="blog-grid-left-sidebar.html">Blog Grid Left Sidebar</a></li>
+                                                    <li><a href="blog-grid-right-sidebar.html">Blog Grid Right Sidebar</a></li>
+                                                </ul>
+                                            </li>
+
+                                            <li class="menu-dropdown position-static">
+                                                <a href="#">Blog Single <i class="ion-ios-arrow-down"></i></a>
+                                            </li>*@
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <a href="#">Sản phẩm</a>
+                                }
+                            </li>
+                            <li class="menu-dropdown">
+                                @if (listNewsCate?.Count > 0)
+                                {
+                                    <a href="#">Tin tức <i class="ion-ios-arrow-down"></i></a>
+                                    <ul class="sub-menu">
+                                        @foreach (var item in listNewsCate.ToList())
+                                        {
+                                            <li class="menu-dropdown position-static">
+                                                <a href="@Url.Action("News", "Home", new { id = item.Id, page = 1 })">@item.CategoryName</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <a href="#">Tin tức</a>
+                                }
+                            </li>
+                            <li><a href="@Url.Action("Contact", "Home")">Liên hệ</a></li>
+                        </ul>
+                    </div>
+                    <!--Main Navigation End -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

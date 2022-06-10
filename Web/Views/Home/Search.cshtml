@@ -1,0 +1,200 @@
+﻿@{
+    var products = (Entities.Common.PaginationModel<List<Entities.DTOs.ProductViewModel>>)ViewBag.ListProductByCategory;
+    var countPage = (products.Pagination.Total % products.Pagination.Size > 1) ? products.Pagination.Total / products.Pagination.Size + 1 :
+        products.Pagination.Total / products.Pagination.Size;
+    var currentCategoryId = products.Data.FirstOrDefault() != null ? products.Data.FirstOrDefault().currentCategoryId : 1;
+    var currentPage = products.Pagination.Offset + 1;
+    bool isNext = (currentPage < countPage);
+    bool isPrev = (currentPage > 1);
+    string currentCategoryName = ViewBag.CurrentCategoryName?.ToString();
+    string currentOrder = ViewBag.CurrentOrder?.ToString();
+}
+
+@{
+    var listRandomProductCategory = (List<Entities.DTOs.ProductCategoryViewModel>)ViewBag.RandomProductCategory;
+    string currentKeyword = ViewBag.CurrentKeyword?.ToString();
+}
+@{
+    ViewData["Title"] = "Kết quả tìm kiếm cho: " + currentKeyword;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="shop-category-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 order-lg-last col-md-12 order-md-first">
+                <!-- Shop Top Area Start -->
+                <div class="shop-top-bar">
+                    <!-- Left Side start -->
+                    <div class="shop-tab nav mb-res-sm-15">
+                        <p>Có tất cả @products.Data.Count sản phẩm.</p>
+                    </div>
+                    <!-- Left Side End -->
+                    <!-- Right Side Start -->
+                    <div class="select-shoing-wrap">
+                        <div class="shot-product">
+                            <p>Sắp xếp:</p>
+                        </div>
+                        <div class="shop-select">
+                            <select name="sltOrder" id="sltOrder">
+                                <option value="">Mặc định</option>
+                                <option value="best_sell">Bán chạy nhất</option>
+                                <option value="date">Mới nhất</option>
+                                <option value="date_desc">Cũ nhất</option>
+                                <option value="abc">Tên: A đến Z</option>
+                                <option value="abc-desc">Tên: Z đến A</option>
+                                <option value="price">Giá: thấp to cao</option>
+                                <option value="price-desc">Giá: cao tới thấp</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Right Side End -->
+                </div>
+                <!-- Shop Top Area End -->
+                <!-- Shop Bottom Area Start -->
+                <div class="shop-bottom-area mt-35">
+                    <!-- Shop Tab Content Start -->
+                    <div class="tab-content jump">
+                        <!-- Tab Two Start -->
+                        <div id="shop-2" class="tab-pane active">
+                            @if (products?.Data?.Count > 0)
+                            {
+                                @foreach (var ran in products.Data)
+                                {
+                                    <div class="shop-list-wrap mb-30px scroll-zoom">
+                                        <div class="row list-product m-0px">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                        <div class="left-img">
+                                                            <div class="img-block">
+                                                                <a href="@Url.Action("ProductDetails", "Home", new { id = ran.Id })" class="thumbnail">
+                                                                    <img class="first-img" src="@ran.MainImageThumb" alt="">
+                                                                    <img class="second-img" src="@ran.MainImageThumb" alt="">
+                                                                </a>
+                                                            </div>
+                                                            <ul class="product-flag">
+                                                                <li class="new">New</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                                        <div class="product-desc-wrap">
+                                                            <div class="product-decs">
+                                                                <a class="inner-link" href="@Url.Action("Product", "Home", new { id = ran.CategoryId })"><span>@ran.ProductCategory.CategoryName</span></a>
+                                                                <h2><a href="@Url.Action("ProductDetails", "Home", new { id = ran.Id })" class="product-link">@ran.Name</a></h2>
+                                                                <div class="rating-product">
+                                                                    <i class="ion-android-star"></i>
+                                                                    <i class="ion-android-star"></i>
+                                                                    <i class="ion-android-star"></i>
+                                                                    <i class="ion-android-star"></i>
+                                                                    <i class="ion-android-star"></i>
+                                                                </div>
+                                                                <div class="pricing-meta">
+                                                                    <ul>
+                                                                        @if (ran.IsPromote)
+                                                                        {
+                                                                            <li class="old-price">@ran.Price đ</li>
+                                                                            <li class="current-price">@ran.PromotionPrice đ</li>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <li class="old-price not-cut">@ran.Price đ</li>
+                                                                        }
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="product-intro-info">
+                                                                    @Html.Raw(ran.Description)
+                                                                </div>
+                                                            </div>
+                                                            <div class="add-to-link">
+                                                                <ul>
+                                                                    <li class="cart"><a class="cart-btn" href="@Url.Action("ProductDetails", "Home", new { id = ran.Id })">Chi tiết </a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+                        </div>
+                        <!-- Tab Two End -->
+                    </div>
+                    <!-- Shop Tab Content End -->
+                    <!--  Pagination Area Start -->
+                    <div class="pro-pagination-style text-center">
+                        <ul>
+                            @if (isPrev)
+                            {
+                                <li>
+                                    <a class="prev" href="@Url.Action("Product", "Home", new { id = currentCategoryId, page = (currentPage-1) })"><i class="ion-ios-arrow-left"></i></a>
+                                </li>
+                            }
+                            @for (int i = 1; i <= countPage; i++)
+                            {
+                                if (currentPage == i)
+                                {
+                                    <li><a class="active" href="@Url.Action("Product", "Home", new { id = currentCategoryId, page = i })">@i</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Product", "Home", new { id = currentCategoryId, page = i })">@i</a></li>
+                                }
+                            }
+                            @if (isNext)
+                            {
+                                <li>
+                                    <a class="next" href="@Url.Action("Product", "Home", new { id = currentCategoryId, page = (currentPage+1) })"><i class="ion-ios-arrow-right"></i></a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <!--  Pagination Area End -->
+                </div>
+                <!-- Shop Bottom Area End -->
+            </div>
+            <!-- Sidebar Area Start -->
+            <div class="col-lg-3 order-lg-first col-md-12 order-md-last mb-res-md-60px mb-res-sm-60px">
+                <div class="left-sidebar">
+                    <div class="sidebar-heading">
+                        <div class="main-heading">
+                            <h2>Danh mục sản phẩm</h2>
+                        </div>
+                        <!-- Sidebar single item -->
+                        <div class="sidebar-widget">
+                            <div class="sidebar-widget-list">
+                                <ul>
+                                    @if (listRandomProductCategory?.Count > 0)
+                                    {
+                                        foreach (var item in listRandomProductCategory)
+                                        {
+                                            <li>
+                                                <div class="sidebar-widget-list-left">
+                                                    <input type="checkbox"> <a href="@Url.Action("Product", "Home", new { id = item.Id, page = 1 })">@item.CategoryName<span>(@item.ProductCount)</span> </a>
+                                                </div>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Sidebar single item -->
+                    </div>
+                </div>
+            </div>
+            <!-- Sidebar Area End -->
+        </div>
+    </div>
+</div>
+<script>
+    $('#sltOrder').on('change', function () {
+                                var orderType = $(this).val()
+            if ($(this).val() != null) {
+                                    window.location = "@Url.Action("Search", "Home", new { id = currentCategoryId, page = currentPage, keyword = currentKeyword})" + '&order=' + orderType;
+                                }
+                            });
+        $("#sltOrder").val("@currentOrder");
+</script>

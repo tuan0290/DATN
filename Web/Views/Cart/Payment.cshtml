@@ -1,0 +1,166 @@
+﻿@model Entities.DTOs.OrderRequestViewModel
+@{
+    ViewData["Title"] = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var listItem = (List<CartItem>)ViewBag.ListProductsInCart;
+    var totalAll = (decimal)0;
+}
+<style>
+    .your-order-area .Place-order > button {
+        background-color: #2e9ed5;
+        color: #fff;
+        display: block;
+        font-weight: 700;
+        letter-spacing: 1px;
+        line-height: 1;
+        padding: 18px 20px;
+        text-align: center;
+        text-transform: uppercase;
+        border-radius: 50px;
+        z-index: 9;
+        width: 100%;
+        border: #fff;
+    }
+</style>
+<hr />
+<div class="checkout-area mt-60px mb-40px">
+    <div class="container">
+        <form action="@Url.Action("Payment", "Cart")" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="billing-info-wrap">
+                        <h3>Thông tin giao hàng</h3>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="billing-info mb-20px">
+                                    <label>Họ và tên <span class="text-red">*</span></label>
+                                    <input asp-for="CustomerFullName" required type="text" placeholder="Nhập vào họ và tên của bạn">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="billing-info mb-20px">
+                                    <label>Số điện thoại <span class="text-red">*</span></label>
+                                    <input asp-for="CustomerPhone" required type="number" placeholder="Nhập vào số điện thoại của bạn">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="billing-info mb-20px">
+                                    <label>Email</label>
+                                    <input asp-for="CustomerEmail" type="email" placeholder="Nhập vào email của bạn">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="billing-info mb-20px">
+                                    <label>Địa chỉ <span class="text-red">*</span></label>
+                                    <input asp-for="CustomerAddress" required type="text" placeholder="Nhập vào địa chỉ chi tiết của bạn (số nhà, tên đường, huyện, tỉnh)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <label>Các trường có dấu <span class="text-red">*</span> không được bỏ trống</label>
+                        </div>
+                        <div class="additional-info-wrap">
+                            <h4>Thông tin thêm</h4>
+                            <div class="additional-info">
+                                <label>Ghi chú đặt hàng</label>
+                                <textarea asp-for="CustomerNote" placeholder="Nhập vào ghi chú đặt hàng"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="your-order-area">
+                        <h3>Chi tiết đơn hàng</h3>
+                        <div class="your-order-wrap gray-bg-4">
+                            <div class="your-order-product-info">
+                                <div class="your-order-top">
+                                    <ul>
+                                        <li>Sản phẩm</li>
+                                        <li>Thành tiền</li>
+                                    </ul>
+                                </div>
+                                <div class="your-order-middle">
+                                    <ul>
+                                        @foreach (var item in listItem)
+                                        {
+                                            var total = (decimal)0;
+                                            {
+                                                if (item.Product.IsPromote)
+                                                {
+                                                    total = (decimal)(item.Product.PromotionPrice * item.Quantity);
+                                                }
+                                                else
+                                                {
+                                                    total = (decimal)(item.Product.Price * item.Quantity);
+                                                }
+                                            }
+                                            <li><span class="order-middle-left">@item.Product.Name X @item.Quantity</span> <span class="order-price">@total.ToString("N0") đ</span></li>
+                                            totalAll += total;
+                                        }
+                                    </ul>
+                                </div>
+                                <div class="your-order-bottom">
+                                    <ul>
+                                        <li class="your-order-shipping">Phí ship</li>
+                                        <li>Miễn phí</li>
+                                    </ul>
+                                </div>
+                                <div class="your-order-total">
+                                    <ul>
+                                        <li class="order-total">Tổng tiền</li>
+                                        <li>@totalAll.ToString("N0") đ</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="payment-method">
+                                <div class="payment-accordion element-mrg">
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel payment-accordion">
+                                            <div class="panel-heading" id="method-one">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#method1">
+                                                        Chuyển khoản ngân hàng
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="method1" class="panel-collapse collapse show">
+                                                <div class="panel-body">
+                                                    <p>
+                                                        Vui lòng chuyển khoản thanh toán trước khi đặt hàng về tài khoản sau: <br />
+                                                        <b>- 10763989 - Ngân hàng Á Châu ACB - TuNga Computer<br /></b>
+                                                        <b>- 03233733301 - Ngân hàng Tiền Phong TPBank - TuNga Computer <br /></b>
+                                                        <b>- 10463755014 - Ngân hàng TMCP Kỹ thương Việt Nam Techcombank - TuNga Computer <br /></b>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel payment-accordion">
+                                            <div class="panel-heading" id="method-three">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#method3">
+                                                        COD
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="method3" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <p>Quý khách sẽ thanh toán bằng tiền mặt khi nhận hàng. Vui lòng bấm "<b>Đặt hàng</b>" để hoàn tất</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Place-order mt-25">
+                            <button type="submit" class="btn-hover">Đặt hàng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

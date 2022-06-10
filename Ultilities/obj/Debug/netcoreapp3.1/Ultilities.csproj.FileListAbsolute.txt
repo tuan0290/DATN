@@ -1,0 +1,20 @@
+D:\.NET Projects\base-da-qlbh\Ultilities\bin\Debug\netcoreapp3.1\Ultilities.deps.json
+D:\.NET Projects\base-da-qlbh\Ultilities\bin\Debug\netcoreapp3.1\Ultilities.dll
+D:\.NET Projects\base-da-qlbh\Ultilities\bin\Debug\netcoreapp3.1\Ultilities.pdb
+D:\.NET Projects\base-da-qlbh\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.csproj.AssemblyReference.cache
+D:\.NET Projects\base-da-qlbh\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.GeneratedMSBuildEditorConfig.editorconfig
+D:\.NET Projects\base-da-qlbh\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.AssemblyInfoInputs.cache
+D:\.NET Projects\base-da-qlbh\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.AssemblyInfo.cs
+D:\.NET Projects\base-da-qlbh\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.csproj.CoreCompileInputs.cache
+D:\.NET Projects\base-da-qlbh\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.dll
+D:\.NET Projects\base-da-qlbh\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.pdb
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\bin\Debug\netcoreapp3.1\Ultilities.deps.json
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\bin\Debug\netcoreapp3.1\Ultilities.dll
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\bin\Debug\netcoreapp3.1\Ultilities.pdb
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.csproj.AssemblyReference.cache
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.GeneratedMSBuildEditorConfig.editorconfig
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.AssemblyInfoInputs.cache
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.AssemblyInfo.cs
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.csproj.CoreCompileInputs.cache
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.dll
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.pdb

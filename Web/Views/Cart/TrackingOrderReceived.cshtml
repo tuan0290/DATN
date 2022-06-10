@@ -1,0 +1,133 @@
+﻿@{
+    ViewData["Title"] = "Giỏ hàng của bạn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Entities.DTOs.TrackingOrderReceivedModel
+<hr />
+@if (Model == null)
+{
+    <div class="container">
+        <div style="padding: 100px,0px;margin-top:20px">
+            <div class=" alert alert-danger">@TempData["error"]</div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+        <div style="padding: 100px,0px">
+            <style>
+                .alert {
+                    font-weight: bold;
+                }
+
+                .alert-warning {
+                    color: #856404;
+                    background-color: #fff3cd;
+                    border-color: #ddcea0;
+                }
+            </style>
+            @{
+                var type = "";
+                var message = "";
+                if (Model.OrderStatusId == 1)
+                {
+                    type = "warning";
+                    message = "Chờ xác nhận";
+                }
+                else if (Model.OrderStatusId == 2)
+                {
+                    type = "warning";
+                    message = "Đơn hàng đã được xác nhận - Đang chờ giao!";
+                }
+                else if (Model.OrderStatusId == 3)
+                {
+                    type = "warning";
+                    message = "Đơn hàng đang được giao - Chờ xác nhận đã giao!";
+                }
+                else if (Model.OrderStatusId == 4)
+                {
+                    type = "success";
+                    message = "Giao hàng thành công!";
+                }
+                else if (Model.OrderStatusId == -2)
+                {
+                    type = "danger";
+                    message = "Giao hàng thất bại!";
+                }
+                else if (Model.OrderStatusId == -1)
+                {
+                    type = "danger";
+                    message = "Đơn hàng đã bị huỷ!";
+                }
+            }
+            <h4>Trạng thái đơn hàng: <b>@Model.OrderCode</b></h4>
+            <div class="alert alert-@type" role="alert" style="margin-top:20px">
+                <p class="info">Trạng thái: @message</p>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="alert alert-primary" role="alert">
+                        Mã đơn hàng: @Model.OrderCode
+                    </div>
+                    <div class="alert alert-primary" role="alert">
+                        Họ tên: @Model.CustomerFullName
+                    </div>
+                    <div class="alert alert-primary" role="alert">
+                        Ngày mua: @Model.CreatedDate.ToString()
+                    </div>
+                    <div class="alert alert-primary" role="alert">
+                        Địa chỉ: @Model.CustomerAddress
+                    </div>
+                    <div class="alert alert-primary" role="alert">
+                        Số điện thoại: @Model.CustomerPhone
+                    </div>
+                    <div class="alert alert-primary" role="alert">
+                        Email: @Model.CustomerEmail
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <!--Table Style-->
+                <style>
+                        .table .thead-light th {
+                            color: #000000;
+                            background-color: #cce5ff;
+                            border-color: #b8daff;
+                        }
+
+                        .table-bordered td, .table-bordered th {
+                            border: 1px solid #b8daff;
+                        }
+                    </style>
+                    <table class="table table-bordered">
+                        <thead class="thead-light" style="background-color: #fffbef">
+                            <tr>
+                                <th scope="col">Mã sản phẩm</th>
+                                <th scope="col">Tên sản phẩm</th>
+                                <th scope="col">Hình ảnh</th>
+                                <th scope="col">Số lượng</th>
+                                <th scope="col">Đơn giá</th>
+                                <th scope="col">Tổng tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var i in @Model.ListProductOrder)
+                            {
+                                <tr class="product" orderCode="@i.ProductId">
+                                    <th scope="row" id="@i.">@i.ProductId</th>
+                                    <td>@Html.ActionLink(i.ProductName, "ProductDetails", "Home", new { id = i.ProductId })</td>
+                                    <td><img src="@i.ProductImage" alt="@i.ProductImage" style="height:30px" /></td>
+                                    <td>@i.Quantity</td>
+                                    <td>@i.ProductPrice.GetValueOrDefault(0).ToString("N0")</td>
+                                    <td>@((i.ProductPrice * i.Quantity).GetValueOrDefault(0).ToString("N0"))</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
