@@ -1,0 +1,16 @@
+D:\DevOps\DATN\TuNgaComputer_DA\Entities\bin\Release\netcoreapp3.1\Entities.deps.json
+D:\DevOps\DATN\TuNgaComputer_DA\Entities\bin\Release\netcoreapp3.1\Entities.runtimeconfig.json
+D:\DevOps\DATN\TuNgaComputer_DA\Entities\bin\Release\netcoreapp3.1\Entities.runtimeconfig.dev.json
+D:\DevOps\DATN\TuNgaComputer_DA\Entities\bin\Release\netcoreapp3.1\Entities.dll
+D:\DevOps\DATN\TuNgaComputer_DA\Entities\bin\Release\netcoreapp3.1\Entities.pdb
+D:\DevOps\DATN\TuNgaComputer_DA\Entities\bin\Release\netcoreapp3.1\Ultilities.dll
+D:\DevOps\DATN\TuNgaComputer_DA\Entities\bin\Release\netcoreapp3.1\Ultilities.pdb
+D:\DevOps\DATN\TuNgaComputer_DA\Entities\obj\Release\netcoreapp3.1\Entities.csproj.AssemblyReference.cache
+D:\DevOps\DATN\TuNgaComputer_DA\Entities\obj\Release\netcoreapp3.1\Entities.GeneratedMSBuildEditorConfig.editorconfig
+D:\DevOps\DATN\TuNgaComputer_DA\Entities\obj\Release\netcoreapp3.1\Entities.AssemblyInfoInputs.cache
+D:\DevOps\DATN\TuNgaComputer_DA\Entities\obj\Release\netcoreapp3.1\Entities.AssemblyInfo.cs
+D:\DevOps\DATN\TuNgaComputer_DA\Entities\obj\Release\netcoreapp3.1\Entities.csproj.CoreCompileInputs.cache
+D:\DevOps\DATN\TuNgaComputer_DA\Entities\obj\Release\netcoreapp3.1\Entities.csproj.CopyComplete
+D:\DevOps\DATN\TuNgaComputer_DA\Entities\obj\Release\netcoreapp3.1\Entities.dll
+D:\DevOps\DATN\TuNgaComputer_DA\Entities\obj\Release\netcoreapp3.1\Entities.pdb
+D:\DevOps\DATN\TuNgaComputer_DA\Entities\obj\Release\netcoreapp3.1\Entities.genruntimeconfig.cache

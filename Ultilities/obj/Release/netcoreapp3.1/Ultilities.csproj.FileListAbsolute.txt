@@ -1,0 +1,10 @@
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\bin\Release\netcoreapp3.1\Ultilities.deps.json
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\bin\Release\netcoreapp3.1\Ultilities.dll
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\bin\Release\netcoreapp3.1\Ultilities.pdb
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\obj\Release\netcoreapp3.1\Ultilities.csproj.AssemblyReference.cache
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\obj\Release\netcoreapp3.1\Ultilities.GeneratedMSBuildEditorConfig.editorconfig
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\obj\Release\netcoreapp3.1\Ultilities.AssemblyInfoInputs.cache
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\obj\Release\netcoreapp3.1\Ultilities.AssemblyInfo.cs
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\obj\Release\netcoreapp3.1\Ultilities.csproj.CoreCompileInputs.cache
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\obj\Release\netcoreapp3.1\Ultilities.dll
+D:\DevOps\DATN\TuNgaComputer_DA\Ultilities\obj\Release\netcoreapp3.1\Ultilities.pdb
